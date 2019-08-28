@@ -1,14 +1,14 @@
 {
-    "name": "el-treeselect",
+    "name": "fxft-tree-select",
     "version": "0.1.0",
     "private": false,
-    "main": "lib/el-treeselect.umd.min.js",
-    "keyword": "el-tree-select tree select tree-select",
+    "main": "lib/tree-select.umd.min.js",
+    "keyword": "tree-select tree select",
     "description": "基于element组件中Select 选择器和Tree 树形控件扩展出来的树结构数据下拉选择器",
     "author": "pengyh",
     "scripts": {
         "dev": "vue-cli-service serve",
-        "lib": "vue-cli-service build --target lib --name el-treeselect --dest lib packages/index.js"
+        "lib": "vue-cli-service build --target lib --name tree-select --dest lib packages/index.js"
     },
     "dependencies": {
         "core-js": "^2.6.5",

@@ -1,7 +1,7 @@
-import elTreeSelect from './el_tree_select'
+import treeSelect from './tree_select'
 
 const components = [
-    elTreeSelect,
+    treeSelect,
 ]
 
 const install = function (Vue) {
@@ -15,5 +15,5 @@ if (typeof window !== 'undefined' && window.Vue) {
 
 export default {
   install,
-  elTreeSelect
+  treeSelect
 }

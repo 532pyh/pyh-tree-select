@@ -1,5 +1,5 @@
 export default {
-    name: 'ElTreeSelect',
+    name: 'treeSelect',
     props: {
         /*select属性*/
         value: {

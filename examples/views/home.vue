@@ -2,7 +2,7 @@
     <div style="text-align:center">
         <img alt="Vue logo" src="../assets/logo.png">
         <div>
-            <el-tree-select style="width:300px;" :data="data" v-model="val" :props="props" show-checkbox default-expand-all filterable popper-append-to-body></el-tree-select>
+            <tree-select style="width:300px;" :data="data" v-model="val" :props="props" show-checkbox default-expand-all filterable popper-append-to-body></tree-select>
         </div>
     </div>
 </template>

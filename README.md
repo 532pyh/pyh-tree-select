@@ -1,9 +1,13 @@
 #### el-select-tree组件使用说明
 ##### 安装
+```
 npm install fxft-tree-select -s
+````
 #### 使用
+```
 import treeSelect from 'fxft-tree-select';
 Vue.use(treeSelect);
+```
 ##### Attributes
 
 | 参数 | 说明 | 类型 | 可选值 | 默认值 |

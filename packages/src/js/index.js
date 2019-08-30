@@ -106,8 +106,8 @@ export default {
             this.label = boolean ? [] : '';
         },
     },
-    created(){
-        this.mergeProps=Object.assign({},this.mergeProps,this.props);
+    created() {
+        this.mergeProps = Object.assign({}, this.mergeProps, this.props);
     },
     methods: {
         isEmpty(value) {
@@ -265,13 +265,54 @@ export default {
         },
 
         /**
-         * 当复选框被点击的时候触发
-         *共两个参数，依次为：传递给 data 属性的数组中该节点所对应的对象、树目前的选中状态对象，
-         * 包含 checkedNodes、checkedKeys、halfCheckedNodes、halfCheckedKeys 四个属性
-         */
+      * 当复选框被点击的时候触发
+      *共两个参数，依次为：传递给 data 属性的数组中该节点所对应的对象、树目前的选中状态对象，
+      * 包含 checkedNodes、checkedKeys、halfCheckedNodes、halfCheckedKeys 四个属性
+      */
         treeCheck(data, { checkedNodes, checkedKeys, halfCheckedNodes, halfCheckedKeys }) {
-            this.label = checkedNodes.map(item => item[this.mergeProps.label]);
-            this.$emit('input', checkedNodes.map(item => item[this.nodeKey]));
+            if (this.checkStrictly) { //父子不相关联
+                //当前节点是否选中
+                const checked = checkedKeys.includes(data[this.nodeKey]);
+                let checkedArray = [], //当前树的选择节点id
+                    currendChidenIds = []; //当前节点子节点id数组
+                let checkedLabelArray = []; //当前树的选择节点名称
+
+                //获取子树id
+                let getIds = array => {
+                    let checkedIds = [];
+                    if (Array.isArray(array) && array.length) {
+                        for (let item of array) {
+                            checkedIds.push(item[this.nodeKey]);
+                            if (Array.isArray(item[this.mergeProps.children]) && item[this.mergeProps.children].length) {
+                                checkedIds = checkedIds.concat(getIds(item[this.mergeProps.children]));
+                            }
+                        }
+                    }
+                    return checkedIds;
+                };
+
+                if (Array.isArray(data[this.mergeProps.children]) && data[this.mergeProps.children].length) {
+                    currendChidenIds = getIds(data[this.mergeProps.children]);
+                    //获取树的选中id(不包含当前子节点id)
+                    for (let id of checkedKeys) {
+                        if (!currendChidenIds.includes(id)) {
+                            checkedArray.push(id);
+                        }
+                    }
+
+                    //当前节点选中，加入当前子节点id
+                    if (checked) {
+                        checkedArray = checkedArray.concat(currendChidenIds);
+                    }
+                    this.setCheckedKeys(checkedArray);
+                } else {
+                    this.label = checkedNodes.map(item => item[this.mergeProps.label]);
+                    this.$emit('input', checkedNodes.map(item => item[this.nodeKey]));
+                }
+            } else {
+                this.label = checkedNodes.map(item => item[this.mergeProps.label]);
+                this.$emit('input', checkedNodes.map(item => item[this.nodeKey]));
+            }
         },
 
         /**

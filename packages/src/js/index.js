@@ -1,6 +1,11 @@
+const mapById = {};
 export default {
     name: 'treeSelect',
     props: {
+        checkHalf: {
+            type: Boolean,
+            default: false,
+        },
         /*select属性*/
         value: {
             required: true
@@ -49,7 +54,7 @@ export default {
             highlightCurrent: !this.showCheckbox, //tree-是否高亮当前选中节点
             mergeProps: {
                 children: 'children',
-                label: 'text',
+                label: 'label',
                 disabled: 'disabled',
                 pid: 'pid', //父级ID
             },
@@ -108,8 +113,17 @@ export default {
     },
     created() {
         this.mergeProps = Object.assign({}, this.mergeProps, this.props);
+        this.mapDataById(this.data);
     },
     methods: {
+        mapDataById(data) {
+            data.forEach(item => {
+                mapById[item.id] = item;
+                if (item[this.mergeProps.children]) {
+                    this.mapDataById(item[this.mergeProps.children])
+                }
+            })
+        },
         isEmpty(value) {
             return value === '' || value === null || value === undefined;
         },
@@ -291,6 +305,16 @@ export default {
                     return checkedIds;
                 };
 
+                //获取父节点id
+                let getParentIds = data => {
+                    let checkedIds = [];
+                    if (data[this.mergeProps.pid]) {
+                        checkedIds.push(data[this.mergeProps.pid]);
+                        checkedIds = checkedIds.concat(getParentIds(mapById[data[this.mergeProps.pid]]));
+                    }
+                    return checkedIds
+                };
+
                 if (Array.isArray(data[this.mergeProps.children]) && data[this.mergeProps.children].length) {
                     currendChidenIds = getIds(data[this.mergeProps.children]);
                     //获取树的选中id(不包含当前子节点id)
@@ -305,10 +329,17 @@ export default {
                         checkedArray = checkedArray.concat(currendChidenIds);
                     }
                     this.setCheckedKeys(checkedArray);
+                } else if (this.checkHalf) {
+                    checkedArray = getParentIds(data);
+                    if(checked){
+                        checkedArray = checkedArray.concat(data.id); 
+                    }
+                    this.setCheckedKeys(checkedArray);
                 } else {
                     this.label = checkedNodes.map(item => item[this.mergeProps.label]);
                     this.$emit('input', checkedNodes.map(item => item[this.nodeKey]));
                 }
+
             } else {
                 this.label = checkedNodes.map(item => item[this.mergeProps.label]);
                 this.$emit('input', checkedNodes.map(item => item[this.nodeKey]));

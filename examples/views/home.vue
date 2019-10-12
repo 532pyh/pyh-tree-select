@@ -2,7 +2,7 @@
     <div style="text-align:center">
         <img alt="Vue logo" src="../assets/logo.png">
         <div>
-            <tree-select style="width:300px;" check-strictly :data="data" v-model="val" :props="props" show-checkbox default-expand-all filterable popper-append-to-body></tree-select>
+            <tree-select style="width:300px;" check-strictly checkHalf :data="data" v-model="val" :props="props" show-checkbox default-expand-all filterable popper-append-to-body></tree-select>
         </div>
     </div>
 </template>
@@ -29,7 +29,7 @@ export default {
                                 {
                                     label: "三级 1-1-1",
                                     id: 3,
-                                    pid: 3,
+                                    pid: 2,
                                 }
                             ]
                         }
@@ -42,19 +42,23 @@ export default {
                         {
                             label: "二级 2-1",
                             id: 5,
+                            pid: 4,
                             children: [
                                 {
                                     label: "三级 2-1-1",
-                                    id: 6
+                                    id: 6,
+                                    pid: 5,
                                 }
                             ]
                         },
                         {
                             label: "二级 2-2",
                             id: 7,
+                            pid: 4,
                             children: [
                                 {
                                     label: "三级 2-2-1",
+                                    pid: 7,
                                     id: 8
                                 }
                             ]
@@ -68,20 +72,24 @@ export default {
                         {
                             label: "二级 3-1",
                             id: 10,
+                            pid: 9,
                             children: [
                                 {
                                     label: "三级 3-1-1",
-                                    id: 11
+                                    id: 11,
+                                    pid: 10,
                                 }
                             ]
                         },
                         {
                             label: "二级 3-2",
                             id: 12,
+                            pid: 9,
                             children: [
                                 {
                                     label: "三级 3-2-1",
-                                    id: 13
+                                    id: 13,
+                                    pid: 12,
                                 }
                             ]
                         }

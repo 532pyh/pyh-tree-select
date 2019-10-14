@@ -290,7 +290,6 @@ export default {
                 let checkedArray = [], //当前树的选择节点id
                     currendChidenIds = []; //当前节点子节点id数组
                 let checkedLabelArray = []; //当前树的选择节点名称
-
                 //获取子树id
                 let getIds = array => {
                     let checkedIds = [];
@@ -310,7 +309,9 @@ export default {
                     let checkedIds = [];
                     if (data[this.mergeProps.pid]) {
                         checkedIds.push(data[this.mergeProps.pid]);
-                        checkedIds = checkedIds.concat(getParentIds(mapById[data[this.mergeProps.pid]]));
+                        if(mapById[data[this.mergeProps.pid]]){
+                            checkedIds = checkedIds.concat(getParentIds(mapById[data[this.mergeProps.pid]]));
+                        }
                     }
                     return checkedIds
                 };

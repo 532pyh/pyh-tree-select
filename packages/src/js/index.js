@@ -279,10 +279,10 @@ export default {
         },
 
         /**
-      * 当复选框被点击的时候触发
-      *共两个参数，依次为：传递给 data 属性的数组中该节点所对应的对象、树目前的选中状态对象，
-      * 包含 checkedNodes、checkedKeys、halfCheckedNodes、halfCheckedKeys 四个属性
-      */
+         * 当复选框被点击的时候触发
+         *共两个参数，依次为：传递给 data 属性的数组中该节点所对应的对象、树目前的选中状态对象，
+         * 包含 checkedNodes、checkedKeys、halfCheckedNodes、halfCheckedKeys 四个属性
+         */
         treeCheck(data, { checkedNodes, checkedKeys, halfCheckedNodes, halfCheckedKeys }) {
             if (this.checkStrictly) { //父子不相关联
                 //当前节点是否选中
@@ -328,16 +328,25 @@ export default {
                     if (checked) {
                         checkedArray = checkedArray.concat(currendChidenIds);
                     }
-                    this.setCheckedKeys(checkedArray);
-                } else if (this.checkHalf) {
-                    checkedArray = getParentIds(data);
-                    if(checked){
-                        checkedArray = checkedArray.concat(data.id); 
+
+                    //将子节点所有关联的父节点都选中直到顶部
+                    if (this.checkHalf) {
+                        checkedArray = checkedArray.concat(getParentIds(data));
                     }
+
                     this.setCheckedKeys(checkedArray);
-                } else {
-                    this.label = checkedNodes.map(item => item[this.mergeProps.label]);
-                    this.$emit('input', checkedNodes.map(item => item[this.nodeKey]));
+                }
+                else {
+                    //将子节点所有关联的父节点都选中直到顶部
+                    if (this.checkHalf) {
+                        checkedArray = getParentIds(data);
+                        const keys=checkedNodes.map(item => item[this.nodeKey]);
+                        checkedArray = checkedArray.concat(keys);
+                        this.setCheckedKeys(checkedArray);
+                    } else {
+                        this.label = checkedNodes.map(item => item[this.mergeProps.label]);
+                        this.$emit('input', checkedNodes.map(item => item[this.nodeKey]));
+                    }
                 }
 
             } else {
@@ -369,7 +378,8 @@ export default {
          */
         getCheckedNodes() {
             if (this.showCheckbox)
-                this.$refs.tree.getCheckedNodes();
+                return this.$refs.tree.getCheckedNodes();
+            
         },
 
         /**
@@ -386,7 +396,7 @@ export default {
          */
         getCheckedKeys() {
             if (this.showCheckbox)
-                this.$refs.tree.getCheckedKeys();
+                return this.$refs.tree.getCheckedKeys();
         },
 
         /**
@@ -413,7 +423,7 @@ export default {
          * 获取当前被选中节点的 key，使用此方法必须设置 node-key 属性，若没有节点被选中则返回 null
          */
         getCurrentKey() {
-            this.$refs.tree.getCurrentKey();
+            return this.$refs.tree.getCurrentKey();
         },
 
         /**
@@ -441,7 +451,7 @@ export default {
          * 获取当前被选中节点的 data，若没有节点被选中则返回 null
          */
         getCurrentNode() {
-            this.$refs.tree.getCurrentNode();
+            return this.$refs.tree.getCurrentNode();
         },
 
         /**

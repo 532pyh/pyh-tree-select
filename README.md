@@ -26,6 +26,7 @@ Vue.use(treeSelect);
 | default-expanded-keys  | 默认展开的节点的 key 的数组    | array     | —    | —     |
 | show-checkbox  | 显示复选框，即多选    | 节点是否可被选择     | —    | false     |
 | check-strictly     | 在显示复选框的情况下，是否严格的遵循父子不互相关联的做法（不相关联：父的选择影响子，子的选择不影响父），默认为 false    | boolean     | —    | false     |
+| checkHalf     | 在check-strictly为true下起作用，选择子节点后将其所有关联的父节点直到顶部全部选中，默认为 false    | boolean     | —    | false     |
 
 ##### props
 | 参数 | 说明 | 类型 | 可选值 | 默认值 |

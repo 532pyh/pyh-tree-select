@@ -21,7 +21,10 @@ export default {
         },
         filterable: Boolean,
         popperAppendToBody: Boolean,
-        disabled: Boolean,
+        disabled: {
+            type:Boolean,
+            default:false,
+        },
 
         /*tree属性*/
         nodeKey: {

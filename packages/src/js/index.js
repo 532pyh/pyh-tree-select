@@ -22,8 +22,8 @@ export default {
         filterable: Boolean,
         popperAppendToBody: Boolean,
         disabled: {
-            type:Boolean,
-            default:false,
+            type: Boolean,
+            default: false,
         },
 
         /*tree属性*/
@@ -96,6 +96,9 @@ export default {
         data: {
             deep: true,
             handler(data) {
+                if (!Object.keys(mapById).length) {
+                    this.mapDataById(this.data);
+                }
                 if (!this.isEmpty(this.value)) {
                     if (this.showCheckbox) {
                         this.setCheckedKeys(this.value, false, false);
@@ -116,7 +119,6 @@ export default {
     },
     created() {
         this.mergeProps = Object.assign({}, this.mergeProps, this.props);
-        this.mapDataById(this.data);
     },
     methods: {
         mapDataById(data) {
@@ -312,7 +314,7 @@ export default {
                     let checkedIds = [];
                     if (data[this.mergeProps.pid]) {
                         checkedIds.push(data[this.mergeProps.pid]);
-                        if(mapById[data[this.mergeProps.pid]]){
+                        if (mapById[data[this.mergeProps.pid]]) {
                             checkedIds = checkedIds.concat(getParentIds(mapById[data[this.mergeProps.pid]]));
                         }
                     }
@@ -344,7 +346,7 @@ export default {
                     //将子节点所有关联的父节点都选中直到顶部
                     if (this.checkHalf) {
                         checkedArray = getParentIds(data);
-                        const keys=checkedNodes.map(item => item[this.nodeKey]);
+                        const keys = checkedNodes.map(item => item[this.nodeKey]);
                         checkedArray = checkedArray.concat(keys);
                         this.setCheckedKeys(checkedArray);
                     } else {
@@ -383,7 +385,7 @@ export default {
         getCheckedNodes() {
             if (this.showCheckbox)
                 return this.$refs.tree.getCheckedNodes();
-            
+
         },
 
         /**

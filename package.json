@@ -1,6 +1,6 @@
 {
     "name": "fxft-tree-select",
-    "version": "1.2.1",
+    "version": "1.2.2",
     "private": false,
     "main": "lib/tree-select.umd.min.js",
     "keyword": "tree-select tree select",

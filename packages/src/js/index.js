@@ -96,9 +96,9 @@ export default {
         data: {
             deep: true,
             handler(data) {
-                if (!Object.keys(mapById).length) {
-                    this.mapDataById(this.data);
-                }
+                console.log(1)
+                mapById = {};
+                this.mapDataById(this.data);
                 if (!this.isEmpty(this.value)) {
                     if (this.showCheckbox) {
                         this.setCheckedKeys(this.value, false, false);

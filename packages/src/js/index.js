@@ -1,4 +1,4 @@
-const mapById = {};
+
 export default {
     name: 'treeSelect',
     props: {
@@ -33,7 +33,10 @@ export default {
         },
         checkStrictly: Boolean,
         data: {
-            type: Array
+            type: Array,
+            default() {
+                return []
+            }
         },
         props: {
             default() {
@@ -61,6 +64,7 @@ export default {
                 disabled: 'disabled',
                 pid: 'pid', //父级ID
             },
+            mapById:{},
         }
     },
     watch: {
@@ -96,9 +100,8 @@ export default {
         data: {
             deep: true,
             handler(data) {
-                console.log(1)
-                mapById = {};
-                this.mapDataById(this.data);
+                this.mapById = {};
+                this.mapDataById(data);
                 if (!this.isEmpty(this.value)) {
                     if (this.showCheckbox) {
                         this.setCheckedKeys(this.value, false, false);
@@ -123,7 +126,7 @@ export default {
     methods: {
         mapDataById(data) {
             data.forEach(item => {
-                mapById[item.id] = item;
+                this.mapById[item.id] = item;
                 if (item[this.mergeProps.children]) {
                     this.mapDataById(item[this.mergeProps.children])
                 }
@@ -314,8 +317,8 @@ export default {
                     let checkedIds = [];
                     if (data[this.mergeProps.pid]) {
                         checkedIds.push(data[this.mergeProps.pid]);
-                        if (mapById[data[this.mergeProps.pid]]) {
-                            checkedIds = checkedIds.concat(getParentIds(mapById[data[this.mergeProps.pid]]));
+                        if (this.mapById[data[this.mergeProps.pid]]) {
+                            checkedIds = checkedIds.concat(getParentIds(this.mapById[data[this.mergeProps.pid]]));
                         }
                     }
                     return checkedIds

@@ -26,18 +26,6 @@ module.exports = {
             libraryExport: 'default'
         }
     },
-    chainWebpack: config => {
-        config.module
-            .rule('js')
-            .include
-            .add('/packages')
-            .end()
-            .use('babel')
-            .loader('babel-loader')
-            .tap(options => {
-                return options
-            })
-    },
     outputDir: 'lib',
     productionSourceMap: false,
     devServer: {

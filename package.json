@@ -1,6 +1,6 @@
 {
     "name": "fxft-tree-select",
-    "version": "1.2.4",
+    "version": "1.2.5",
     "private": false,
     "main": "lib/tree-select.umd.min.js",
     "keyword": "tree-select tree select",
@@ -8,7 +8,8 @@
     "author": "pengyh",
     "scripts": {
         "dev": "vue-cli-service serve",
-        "lib": "vue-cli-service build --target lib --name tree-select --dest lib packages/index.js"
+        "lib": "vue-cli-service build --target lib --name tree-select --dest lib packages/index.js",
+        "inspect": "vue-cli-service --mode production inspect > output.js"
     },
     "dependencies": {
         "core-js": "^2.6.5",

@@ -279,6 +279,9 @@ export default {
             if (this.showCheckbox) { //多选
 
             } else { //单选
+                if(data[this.mergeProps.disabled]){
+                    return false;
+                }
                 this.label = node.label;
                 this.$refs.selectTree.blur();
                 this.$emit('input', node.key);

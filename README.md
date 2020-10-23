@@ -31,9 +31,9 @@ Vue.use(treeSelect);
 ##### props
 | 参数 | 说明 | 类型 | 可选值 | 默认值 |
 | -------- | -------- | -------- | -------- | -------- |
-| label | 指定节点标签为节点对象的某个属性值 | string, function(data, node) | — | text |
+| label | 指定节点标签为节点对象的某个属性值 | string | — | text |
 | children | 指定子树为节点对象的某个属性值 | string | — | children |
-| disabled | 指定节点选择框是否禁用为节点对象的某个属性值 | boolean, function(data, node) | — | disabled |
+| disabled | 指定节点选择框是否禁用为节点对象的某个属性值 | string | — | disabled |
 | pid | 当check-strictly值为true时,必须指定当前数据对象的父级id | string | — | pid |
 
 ##### 方法

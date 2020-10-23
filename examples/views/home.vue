@@ -2,7 +2,7 @@
     <div style="text-align:center">
         <img alt="Vue logo" src="../assets/logo.png">
         <div>
-            <tree-select style="width:300px;" check-strictly checkHalf :data="data" v-model="val" :props="props" show-checkbox default-expand-all filterable popper-append-to-body ref="treeSelect"></tree-select>
+            <tree-select style="width:300px;" check-strictly checkHalf :data="data" v-model="val" :props="props" default-expand-all filterable popper-append-to-body ref="treeSelect"></tree-select>
         </div>
     </div>
 </template>
@@ -30,6 +30,7 @@ export default {
                                     id: 878,
                                     pid: 877,
                                     title: "账户提现(账户信息)",
+                                    disabled: true
                                 }
                             ]
                         }
